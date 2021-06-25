@@ -21,14 +21,31 @@ function getColor(){
 
 const table = document.querySelector("table");
   table.onclick = function(event) {
-    let target = event.target; // где был клик?
-    if (target.tagName != 'TD') return; // не на TD? тогда не интересует
+    let target = event.target; 
+    if (target.tagName != 'TD') return;
     target.style.backgroundColor = getColor();
   };
 
-  table.onmouseover = function(event) {
-    let target = event.target;
-    if (target.tagName != 'TD') return;
-    if(event.ctrlKey)
-    target.style.background = getColor(); //беспрерывно рисовать выбранным цветом
-  };
+  //continuous painting with pressing ctrl key
+  // table.onmouseover = function(event) {
+  //   let target = event.target;
+  //   if (target.tagName != 'TD') return;
+  //   //if(event.ctrlKey)
+  //   target.style.background = getColor();
+  // };
+
+  //continuous painting with pressing mouse
+  document.onmousedown=(event)=>{fire('first', event);};
+  document.onmouseover=(event)=>{fire('second', event);};
+  let got = { first : 0, second : 0 };
+  table.onmouseup=()=>{got = { first : 0, second : 0 }};
+  
+  function fire(event_type, event) {
+    got[ event_type ] = 1;
+    if( got.first && got.second )
+    {
+        let target = event.target;
+        if (target.tagName != 'TD') return;
+        target.style.background = getColor();
+    }
+  }
