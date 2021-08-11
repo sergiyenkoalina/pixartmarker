@@ -1,7 +1,5 @@
 # Pixel Art Maker
 
-![Example of Pixel Art Maker](pixel-art-maker-alt.png)
-
 The pixel art maker allows a user to do the following.
 
 1. Start with a blank canvas of pixels.
